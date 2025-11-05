@@ -1,0 +1,139 @@
+erDiagram
+
+    %% === ENTIDAD PRINCIPAL ===
+    PERSONA {
+        int id PK
+        int idMayorMenor FK
+        int idEstadoCivil FK
+        int idAncestroRacial FK
+        int idPuebloIndigena FK
+        int idIdentidadGenero FK
+        int idOrientacionSexual FK
+        int idPaisNacimiento FK
+        int idEscolaridad FK
+        int idTransgenero FK
+        int idGrupoEdad FK
+        int idSexo FK
+        int edad
+    }
+
+    %% === CATÁLOGOS PERSONA ===
+    ESTADO_CIVIL {
+        int idEstadoCivil PK
+        string nombre
+    }
+
+    ANCESTRO_RACIAL {
+        int idAncestroRacial PK
+        string nombre
+    }
+
+    PUEBLO_INDIGENA {
+        int idPuebloIndigena PK
+        string nombre
+    }
+
+    IDENTIDAD_GENERO {
+        int idIdentidadGenero PK
+        string nombre
+    }
+
+    ORIENTACION_SEXUAL {
+        int idOrientacionSexual PK
+        string nombre
+    }
+
+    PAIS {
+        int idPais PK
+        string nombre
+        string codigoISO
+    }
+
+    ESCOLARIDAD {
+        int idEscolaridad PK
+        string nivel
+    }
+
+    TRANSGENERO {
+        int idTransgenero PK
+        string descripcion
+    }
+
+    SEXO {
+        int idSexo PK
+        string tipoSexo
+    }
+
+    MAYOR_MENOR {
+        int idMayorMenor PK
+        string tipoEdad
+    }
+
+    GRUPO_EDAD_QUINQUENAL {
+        int idGrupoEdad PK
+        string nombreGrupo
+    }
+
+    %% === HECHO Y SUS DEPENDENCIAS ===
+    HECHO {
+        int idHecho PK
+        int idPersona FK
+        string descripcionDerecho
+        string actividadDurante
+        string mecanismo
+        string circunstancia
+        string maneraMuerte
+        string diagnostico
+    }
+
+    FECHA {
+        int idFecha PK
+        int idHecho FK
+        int dia
+        int mes
+        int ano
+        string rangoHora
+    }
+
+    UBICACION {
+        int idUbicacion PK
+        int idHecho FK
+        string localidad
+        int idMunicipio FK
+        string zonaHecho
+        string escenarioHecho
+    }
+
+    MUNICIPIO {
+        int idMunicipio PK
+        string nombreMunicipio
+        string codigoDaneMunicipio
+        int idDepartamento FK
+    }
+
+    DEPARTAMENTO {
+        int idDepartamento PK
+        string nombreDepartamento
+        string codigoDaneDepartamento
+        int idPais FK
+    }
+
+    %% === RELACIONES ===
+    PERSONA ||--o{ HECHO : "tiene"
+    PERSONA }o--|| MAYOR_MENOR : "clasificado como"
+    PERSONA }o--|| GRUPO_EDAD_QUINQUENAL : "pertenece a"
+    PERSONA }o--|| ESTADO_CIVIL : "posee"
+    PERSONA }o--|| ANCESTRO_RACIAL : "tiene"
+    PERSONA }o--|| PUEBLO_INDIGENA : "pertenece a"
+    PERSONA }o--|| IDENTIDAD_GENERO : "se identifica con"
+    PERSONA }o--|| ORIENTACION_SEXUAL : "tiene"
+    PERSONA }o--|| PAIS : "nació en"
+    PERSONA }o--|| ESCOLARIDAD : "nivel educativo"
+    PERSONA }o--|| TRANSGENERO : "tipo"
+    PERSONA }o--|| SEXO : "es"
+
+    HECHO ||--o| FECHA : "ocurre en"
+    HECHO ||--o| UBICACION : "sucede en"
+    UBICACION }o--|| MUNICIPIO : "ubicado en"
+    MUNICIPIO }o--|| DEPARTAMENTO : "pertenece a"
+    DEPARTAMENTO }o--|| PAIS : "pertenece a"
