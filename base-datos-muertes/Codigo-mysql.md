@@ -1,5 +1,5 @@
 -- Crear base de datos
-CREATE DATABASE `muertes-database` CHARACTER SET utf8mb4;
+CREATE DATABASE `muertes-database` CHARACTER SET utf8mb4];
 USE `muertes-database`;
 
 -- Tabla MAYOR_MENOR
